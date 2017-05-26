@@ -1,0 +1,18 @@
+<a [routerLink]="['/login']">Logout</a>
+<a [routerLink] = "['/home']">Stars Dashboard</a>
+<a [routerLink]="['/new']">Register a new star</a>
+<h1>Register a new Star</h1>
+<br>
+{{ userName }}
+
+<form (ngSubmit)="newStar()" #form='ngForm'>
+    <div>
+        Star Name: <input type="text" name="title" [(ngModel)]="star.title" #title='ngModel' required>
+    </div>
+    <p *ngIf='!title.valid && title.dirty'>Title is required</p>
+    <div>
+        Description: <textarea type="text" name="description" [(ngModel)]="star.description" required minlength='8' #description='ngModel'></textarea>
+    </div>
+    <p *ngIf='!description.valid && description.dirty'>Description must be at least 8 characters</p>
+    <input type="submit" value="Register Star" [disabled]='!form.valid'>
+</form>

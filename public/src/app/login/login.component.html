@@ -1,0 +1,7 @@
+<div class="login">
+    <h3>Login</h3>
+    <form (ngSubmit)='onLogin(); login.reset()' #login="ngForm" name="login">
+        Name:<input type="text" name='userName' [(ngModel)]='userName' required minlength='4'> <br>
+        <button type="submit" name="button" [disabled]="!login.valid">Login</button>
+    </form>
+</div>

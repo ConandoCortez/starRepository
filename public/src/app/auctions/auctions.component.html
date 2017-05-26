@@ -1,0 +1,45 @@
+<div *ngIf="!userName">
+    Please go back and login
+</div>
+
+<div *ngIf="userName">
+    <div class="auctions-nav">
+        <h1>Stars Registry</h1>
+        <p>Hello {{ userName }}</p>
+        <a [routerLink]="['/login']">Logout</a>
+        <a [routerLink] = "['/dashboard']">Stars Dashboard</a>
+        <a [routerLink]="['/new']">Register a new star</a>
+    </div>
+    <div class="auctions-body" *ngIf='data'>
+        <table class="table table-striped">
+            <thead>
+                <th>Star Name</th>
+                <th>Notes</th>
+            </thead>
+            <tbody>
+                <tr *ngFor='let star of data | slice:0:5; let i=index'>
+                    <!-- <td><a [routerLink]="['/edit', star._id]">{{ star.title }}</a></td> -->
+                    <td><span (click)='clicked(star)' style="color: blue; text-decoration:underline">{{ star.title }}</span></td>
+                    <td>{{star.noteCount}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<div *ngIf='note'>
+    <h1>{{ note.title }}</h1>
+    <p>Description: {{note.description}}</p>
+    <p>Note: {{note.noteCount}}</p>
+    <p>Created At: {{note.createdAt | date: 'MM/dd/yyyy'}}</p>
+    <p>Created By: {{note.author}}</p>
+    <div *ngFor='let data of note.note'>
+        <p>Description: {{data.description}}</p>
+        <p>Author: {{data.author}}</p>
+    </div>
+    <form (ngSubmit)='addNote()'>
+        Your note: <input type="text" name="description" [(ngModel)]='updateNote.description' required minlength='3' #description='ngModel'>
+        <p *ngIf='!description.valid && (description.dirty)'>Description needs to be at least 3 characters</p>
+        <button type="submit" name="button" [disabled]="!description.valid">Add note</button>
+    </form>
+</div>
