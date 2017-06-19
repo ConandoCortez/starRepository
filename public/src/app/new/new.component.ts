@@ -32,8 +32,8 @@ export class NewComponent implements OnInit {
   newStar(){
       this.star.author = this.userName;
       this.star.noteCount = 0;
-      console.log("star Information", this.star);
-      this._httpService.new(this.star).then(results => {this.results = results, this._router.navigate(['/home'])}).catch(err => console.log(err))
+    //   console.log("star Information", this.star);
+      this._httpService.new(this.star).then(results => {this.results = results, this._router.navigate(['/home'])})
   }
 
   ngOnInit() {

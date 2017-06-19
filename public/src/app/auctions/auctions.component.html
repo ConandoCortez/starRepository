@@ -17,7 +17,7 @@
                 <th>Notes</th>
             </thead>
             <tbody>
-                <tr *ngFor='let star of data | slice:0:5; let i=index'>
+                <tr *ngFor='let star of data'>
                     <!-- <td><a [routerLink]="['/edit', star._id]">{{ star.title }}</a></td> -->
                     <td><span (click)='clicked(star)' style="color: blue; text-decoration:underline">{{ star.title }}</span></td>
                     <td>{{star.noteCount}}</td>

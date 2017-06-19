@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 var StarSchema = new mongoose.Schema({
   author: {type: String, required:[true], minlength: 2},
   description: {type: String, required:[true, "Description must be at least 8 characters."], minlength: 8},
-  title: {type: String, required:[true]},
+  title: {type: String, required:[true], unique: true},
   note: [{
       description: {type: String},
       author: {type: String}
@@ -29,7 +29,7 @@ mongoose.Promise = global.Promise;
 app.use(express.static(__dirname + '/public/bower_components'));
 app.use(express.static(__dirname + '/public/dist'));
 
-
+// Dashboard shows all the documents in the schema
 app.get('/dashboard', function(req, res){
     Stars.find({}, function(err, data){
         if(err){
@@ -41,6 +41,19 @@ app.get('/dashboard', function(req, res){
     })
 })
 
+// topStars limits the query to 5 documents and grabs the ones with the most notes
+app.get('/topStars', function(req, res){
+    Stars.find({}, {}, {limit: 5, sort: {'noteCount': -1}}, function(err, data){
+        if(err){
+            console.log('There was an error', err);
+        }
+        else {
+            return res.json(data);
+        }
+    })
+})
+
+// Creates a new document with required information
 app.post('/createStar', function(req, res){
 	console.log(req.body)
 	var star = new Stars({title: req.body.title, author: req.body.author, description: req.body.description, noteCount: req.body.noteCount});

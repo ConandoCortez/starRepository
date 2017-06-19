@@ -12,6 +12,10 @@ export class HttpService {
       return this._http.get('/dashboard').map(response => response.json()).toPromise();
   }
 
+  show_five(){
+      return this._http.get('/topStars').map(response => response.json()).toPromise();
+  }
+
   new(star){
     //   console.log(user)
       return this._http.post('/createStar', star).map(response => response.json()).toPromise();

@@ -34,7 +34,7 @@ export class AuctionsComponent implements OnInit {
       this.subscription.unsubscribe();
   }
   ngOnInit() {
-      this._httpService.show_all().then( results => {this.data = results}).catch(err => console.log(err))
+      this._httpService.show_five().then( results => {this.data = results}).catch(err => console.log(err))
   }
 
   deleteAuction(id){
