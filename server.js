@@ -30,7 +30,7 @@ app.use(express.static(__dirname + '/public/bower_components'));
 app.use(express.static(__dirname + '/public/dist'));
 
 // Dashboard shows all the documents in the schema
-app.get('/dashboard', function(req, res){
+app.get('/starDashboard', function(req, res){
     Stars.find({}, function(err, data){
         if(err){
             console.log('There was an error', err);

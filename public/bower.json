@@ -1,0 +1,24 @@
+{
+  "name": "y",
+  "description": "y",
+  "main": "y",
+  "authors": [
+    "y"
+  ],
+  "license": "y",
+  "homepage": "y",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  },
+  "keywords": [
+    "y"
+  ],
+  "private": true
+}

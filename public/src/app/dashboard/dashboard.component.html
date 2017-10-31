@@ -1,45 +1,74 @@
-
-<div class="auctions-nav">
-    <h1>Stars Dashboard</h1>
+<div class="container">
+    <h1>Stars Registry</h1>
     <p>Hello {{ userName }}</p>
-    <a [routerLink]="['/login']">Logout</a>
-    <a [routerLink] = "['/home']">Home</a>
-    <a [routerLink]="['/new']">Register a new star</a>
-</div>
-<div class="auctions-body" *ngIf='data'>
-    <table class="table table-striped">
-        <thead>
-            <th>Star Name</th>
-            <th>Description</th>
-            <th>Notes</th>
-            <th>Actions</th>
-        </thead>
-        <tbody>
-            <tr *ngFor='let star of data'>
-                <td><span (click)='clicked(star)' style="color: blue; text-decoration:underline">{{ star.title }}</span></td>
-                <td>{{ star.description }}</td>
-                <td>{{ star.noteCount }}</td>
-                <td *ngIf='userName == star.author'><button (click)="deleteStar(star._id)">Delete</button><a [routerLink]="['/edit', star._id]"><button>Edit</button></a></td>
-
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-
-<div *ngIf='note'>
-    <h1>{{ note.title }}</h1>
-    <p>Description: {{note.description}}</p>
-    <p>Note: {{note.noteCount}}</p>
-    <p>Created At: {{note.createdAt | date: 'MM/dd/yyyy'}}</p>
-    <p>Created By: {{note.author}}</p>
-    <div *ngFor='let data of note.note'>
-        <p>Description: {{data.description}}</p>
-        <p>Author: {{data.author}}</p>
+    <nav class = "navbar navbar-default">
+        <div class="auctions-nav">
+            <ul class="nav navbar-nav">
+                <li><a [routerLink]="['/login']">Logout</a></li>
+                <li><a [routerLink] = "['/home']">Home</a></li>
+                <li><a [routerLink]="['/new']">Register a new star</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="auctions-body" *ngIf='data'>
+        <table class="table table-striped">
+            <thead>
+                <th>Star Name</th>
+                <th>Description</th>
+                <th>Notes</th>
+                <th>Actions</th>
+            </thead>
+            <!-- Goes through the queried data and separates the title, description, and number of notes. Also allows edit/delete if the current user created the document -->
+            <tbody>
+                <tr *ngFor='let star of data'>
+                    <td><span (click)='clicked(star)' style="color: blue; text-decoration:underline">{{ star.title }}</span></td>
+                    <td>{{ star.description }}</td>
+                    <td>{{ star.noteCount }}</td>
+                    <td *ngIf='userName == star.author'><a [routerLink]="['/edit', star._id]"><button class="btn btn-info">Edit</button></a><button class="btn btn-danger" (click)="deleteStar(star._id)">Delete</button></td>
+                    <!-- To make sure the table looks uniform if the current user is not the creator-->
+                    <td *ngIf='userName != star.author'></td>
+                </tr>
+            </tbody>
+        </table>
     </div>
-    <form (ngSubmit)='addNote()'>
-        Your note: <input type="text" name="description" [(ngModel)]='updateNote.description' required minlength='3' #description='ngModel'>
-        <p *ngIf='!description.valid && (description.dirty)'>Description needs to be at least 3 characters</p>
-        <button type="submit" name="button" [disabled]="!description.valid">Add note</button>
-    </form>
+
+<!-- used to display information about a specific star document without moving to another page. Includes all the notes added to the document and allows user to add more notes -->
+    <div *ngIf='note'>
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                {{ note.title }}
+            </div>
+            <div class="panel-body">
+                <table class="table table-bordered">
+                    <tbody>
+                        <tr>
+                            <td><b>Description:</b> {{note.description}}</td>
+                            <td><b>Note:</b> {{note.noteCount}}</td>
+                        </tr>
+                        <tr>
+                            <td><b>Created At:</b> {{note.createdAt | date: 'MM/dd/yyyy'}}</td>
+                            <td><b>Created By:</b> {{note.author}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <table class="table">
+                    <thead>
+                        <th>Note Description</th>
+                        <th>Note Author</th>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor='let data of note.note'>
+                            <td>Description: {{data.description}}</td>
+                            <td>Author: {{data.author}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <form (ngSubmit)='addNote()'>
+                    Your note: <input type="text" name="description" [(ngModel)]='updateNote.description' required minlength='3' #description='ngModel'>
+                    <p *ngIf='!description.valid && (description.dirty)'>Description needs to be at least 3 characters</p>
+                    <button type="submit" name="button" [disabled]="!description.valid">Add note</button>
+                </form>
+            </div>
+        </div>
+    </div>
 </div>

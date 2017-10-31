@@ -9,7 +9,7 @@ export class HttpService {
   constructor(private _http: Http) {}
 
   show_all(){
-      return this._http.get('/dashboard').map(response => response.json()).toPromise();
+      return this._http.get('/starDashboard').map(response => response.json()).toPromise();
   }
 
   show_five(){

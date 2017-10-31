@@ -1,7 +1,17 @@
-<div class="login">
-    <h3>Login</h3>
-    <form (ngSubmit)='onLogin(); login.reset()' #login="ngForm" name="login">
-        Name:<input type="text" name='userName' [(ngModel)]='userName' required minlength='4'> <br>
-        <button type="submit" name="button" [disabled]="!login.valid">Login</button>
-    </form>
+<div class="container">
+    <div class="login">
+        <h1>Welcome to the Star Registry</h1>
+        <h3>Login</h3>
+        <form (ngSubmit)='onLogin(); login.reset()' #login="ngForm" name="login" class="form-horizontal">
+            <div class="form-group">
+                <label for="userName" class="control-label col-sm-1">Name: </label>
+                <div class="col-sm-6">
+                    <input type="text" name='userName' [(ngModel)]='userName' required minlength='4' class="form-control"> <br>
+                </div>
+                <div class="col-sm-offset-1 col-sm-10">
+                    <button type="submit" name="button" [disabled]="!login.valid" class="btn btn-success">Login</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
